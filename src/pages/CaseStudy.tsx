@@ -4,12 +4,13 @@ import { ButtonLink } from '../components/ButtonLink'
 import { CaseStudyBlocks } from '../components/CaseStudyBlocks'
 import { Section } from '../components/Section'
 import { Tag } from '../components/Tag'
-import { getProject } from '../data/projects'
+import { getNextProject, getProject } from '../data/projects'
 import { NotFound } from './NotFound'
 
 export function CaseStudy() {
   const { slug } = useParams<{ slug: string }>()
   const project = getProject(slug)
+  const nextProject = getNextProject(slug)
   const titleRef = useRef<HTMLHeadingElement>(null)
 
   // Scroll to top on navigation & SplitText Scatter for Case Study Title
@@ -48,7 +49,7 @@ export function CaseStudy() {
     return () => {
       if (ctx) ctx.revert()
     }
-  }, [project])
+  }, [slug, project])
 
   if (!project) return <NotFound />
 
@@ -89,6 +90,7 @@ export function CaseStudy() {
           </div>
 
           <h1
+            key={slug}
             ref={titleRef}
             aria-label={project.name}
             className="mt-4 font-serif text-h1 font-normal leading-tight"
@@ -133,7 +135,7 @@ export function CaseStudy() {
       </Section>
 
       {/* CONTENT */}
-      <Section id="case-study-content" theme="light" overlap reveal={false} fireflies={{ count: 6, peak: 0.3 }}>
+      <Section id="case-study-content" theme="dark" overlap reveal={false} fireflies={{ count: 10, peak: 0.6 }}>
         <div className="grid gap-16 lg:grid-cols-[240px_1fr]">
           <nav aria-label="Case Study Section Index" className="hidden lg:block">
             <div className="sticky top-28 space-y-2.5 border-l border-line pl-4 text-xs">
@@ -166,9 +168,11 @@ export function CaseStudy() {
               <ButtonLink to="/#work" variant="secondary" arrow={false}>
                 &larr; Back to Selected Projects
               </ButtonLink>
-              <ButtonLink to="/#contact" variant="primary">
-                Let&apos;s discuss this project &rarr;
-              </ButtonLink>
+              {nextProject && (
+                <ButtonLink to={`/work/${nextProject.slug}`} variant="primary">
+                  Next Project: {nextProject.name} &rarr;
+                </ButtonLink>
+              )}
             </div>
           </article>
         </div>

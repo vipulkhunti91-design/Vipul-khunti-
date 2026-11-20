@@ -298,10 +298,10 @@ export function HorizontalProjects() {
                     Curated Case Studies
                   </span>
                   <h2 className="mt-4 font-serif text-4xl md:text-5xl font-normal leading-tight text-fg">
-                    Crafted with intent & precision.
+                    Designing with purpose.
                   </h2>
                   <p className="mt-6 text-sm md:text-base text-muted leading-relaxed">
-                    A focused curation of mobile and digital product designs. Each project balances ergonomic usability, visual clarity, and accessible systems.
+                    A selection of projects where I explore ideas, understand user needs, and turn problems into simple and useful digital experiences.
                   </p>
                 </div>
 
@@ -357,7 +357,9 @@ export function HorizontalProjects() {
                   </div>
 
                   <Link to={`/work/${p.slug}`} className="block group">
-                    <Cover cover={p.cover} className="aspect-[16/10] rounded-lg overflow-hidden mb-4 transition-transform duration-500 group-hover:scale-[1.02]" />
+                    <div className="aspect-[16/9] rounded-lg overflow-hidden mb-4 transition-transform duration-500 group-hover:scale-[1.02] flex items-center justify-center">
+                      <Cover cover={p.cover} objectFit="contain" className="w-full h-full border-none shadow-none bg-transparent" />
+                    </div>
                     <h3 className="font-serif text-2xl font-normal text-fg group-hover:text-accent transition-colors">
                       {p.name}
                     </h3>
@@ -487,17 +489,11 @@ function ProjectPanel({
           aria-hidden="true"
           className="relative w-full h-full flex items-center justify-center"
         >
-          {/* Main Cover Mockup */}
-          <div className="relative w-full max-w-[420px] aspect-[16/10] rounded-xl overflow-hidden shadow-2xl transition-transform duration-500 group-hover/visual:scale-[1.03]">
-            <Cover cover={project.cover} className="w-full h-full object-cover" />
+          {/* Main Cover Banner */}
+          <div className="relative w-full max-w-[540px] aspect-[16/9] rounded-xl overflow-hidden shadow-2xl transition-transform duration-500 group-hover/visual:scale-[1.02] flex items-center justify-center">
+            <Cover cover={project.cover} objectFit="contain" className="w-full h-full border-none shadow-none bg-transparent" />
           </div>
 
-          {/* Secondary preview peek if available */}
-          {project.previews && project.previews.length > 1 && (
-            <div className="hidden xl:block absolute -right-6 -bottom-6 w-36 aspect-[9/19.5] rounded-xl overflow-hidden border-2 border-surface shadow-2xl rotate-6 transition-transform duration-500 group-hover/visual:translate-y-[-8px] group-hover/visual:rotate-3">
-              <Cover cover={project.previews[1]} className="w-full h-full object-cover" />
-            </div>
-          )}
 
           <div className="absolute bottom-3 left-3 rounded-full bg-surface/90 backdrop-blur-md px-3 py-1 text-[11px] font-medium text-muted border border-line">
             {project.previewLabel} &bull; Open Interactive Case Study

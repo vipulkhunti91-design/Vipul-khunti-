@@ -516,7 +516,7 @@ footer[data-theme] {
   .case-screen-card:hover .group\/shot {
     transform: translateY(-0.35rem);
     border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
-    box-shadow: 0 14px 30px rgb(20 20 19 / 0.14);
+    box-shadow: 0 14px 30px rgb(0 0 0 / 0.35);
   }
 }
 

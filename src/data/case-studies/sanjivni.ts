@@ -1,7 +1,4 @@
 import type { CaseStudyData } from '../projects'
-import { shot } from '../figma'
-
-const s = (key: string) => shot('sanjivni', key)
 
 // Source: Figma file "Kid app study", frame "Slide 16:9 - 11" / "Design thinking" (Sanjivni).
 export const sanjivni: CaseStudyData = {
@@ -141,16 +138,6 @@ export const sanjivni: CaseStudyData = {
         },
       ],
     },
-    {
-      id: 'wireframes',
-      title: 'Wireframes',
-      blocks: [
-        {
-          type: 'p',
-          text: 'The project reached black-and-white, low-fidelity wireframes for login/sign-up, home, nearby medical stores and delivery. High-fidelity screens and a design system are the next step.',
-        },
-        { type: 'screens', label: 'Low-fidelity wireframes', items: [s('login'), s('home'), s('stores'), s('delivery')] },
-      ],
-    },
+
   ],
 }

@@ -53,9 +53,9 @@ const projectRecords: Project[] = [
     summary:
       'A campus printing solution that lets students upload documents, choose printing preferences, review estimated costs, and track orders using a digital pickup token — cutting queue time at Siddhi Store.',
     tags: ['Mobile App', 'User Research', 'Usability Testing'],
-    cover: shot('phtopy', 'tracker'),
+    cover: { src: '/projects/phtopy/cover.jpg', alt: 'Phtopy - Print without the queue Case study' },
     previews: [shot('phtopy', 'home'), shot('phtopy', 'tracker'), shot('phtopy', 'upi')],
-    previewLabel: 'Final UI',
+    previewLabel: 'Case Study',
     caseStudy: phtopy,
   },
   {
@@ -67,9 +67,9 @@ const projectRecords: Project[] = [
     summary:
       'A child-friendly bus booking experience with visual guidance, voice instructions, step-by-step booking, parent approval, live tracking, and SOS support.',
     tags: ['Child-centred UX', 'Mobile App', 'Visual Design'],
-    cover: shot('red-bus-kids', 'home'),
+    cover: { src: '/projects/red-bus-kids/cover.jpg', alt: 'RedBus Kids Case study' },
     previews: [shot('red-bus-kids', 'book'), shot('red-bus-kids', 'home'), shot('red-bus-kids', 'track')],
-    previewLabel: 'Final UI',
+    previewLabel: 'Case Study',
     caseStudy: redBusKids,
   },
   {
@@ -81,13 +81,13 @@ const projectRecords: Project[] = [
     summary:
       'A mobile parking app concept to help drivers discover nearby parking spaces, compare options, check availability, and book a spot before reaching their destination.',
     tags: ['Mobile UX', 'User Research', 'Wireframing'],
-    cover: { src: '/projects/parkora/final-nearby.png', alt: 'Nearby Parking search & available spots' },
+    cover: { src: '/projects/parkora/cover.jpg', alt: 'Parkora Case study' },
     previews: [
       { src: '/projects/parkora/final-nearby.png', alt: 'Nearby Parking search & available spots' },
       { src: '/projects/parkora/final-details.png', alt: 'Parking location details' },
       { src: '/projects/parkora/final-booking.png', alt: 'Booking details & pricing' },
     ],
-    previewLabel: 'Final UI',
+    previewLabel: 'Case Study',
     caseStudy: parkora,
   },
   {
@@ -99,9 +99,9 @@ const projectRecords: Project[] = [
     summary:
       'A digital cafe management system with digital menus, pre-ordering, live order tracking, and a staff management experience designed for campus food service.',
     tags: ['Mobile App', 'User Research', 'Dual-App System'],
-    cover: shot('indu-cafe', 'home'),
+    cover: { src: '/projects/indu-cafe/cover.jpg', alt: 'Indu Cafe Case study' },
     previews: [shot('indu-cafe', 'menu'), shot('indu-cafe', 'home'), shot('indu-cafe', 'track')],
-    previewLabel: 'Final UI',
+    previewLabel: 'Case Study',
     caseStudy: induCafe,
   },
   {
@@ -113,9 +113,9 @@ const projectRecords: Project[] = [
     summary:
       'A healthcare app concept to help people in rural and small-town areas find essential medicines, check pharmacy availability, compare prices, and access home delivery.',
     tags: ['Healthcare UX', 'User Research', 'Wireframing'],
-    cover: shot('sanjivni', 'home'),
+    cover: { src: '/projects/sanjivni/cover.jpg', alt: 'Sanjivni Case study' },
     previews: [shot('sanjivni', 'stores'), shot('sanjivni', 'home'), shot('sanjivni', 'delivery')],
-    previewLabel: 'Wireframes',
+    previewLabel: 'Case Study',
     caseStudy: sanjivni,
   },
 ]
@@ -133,3 +133,10 @@ export const projects: Project[] = projectOrder.map((slug) => {
 export const featuredProjects = projects.filter((p) => p.featured)
 
 export const getProject = (slug: string | undefined) => projects.find((p) => p.slug === slug)
+
+export const getNextProject = (currentSlug: string | undefined) => {
+  const currentIndex = projects.findIndex((p) => p.slug === currentSlug)
+  if (currentIndex === -1) return projects[0]
+  const nextIndex = (currentIndex + 1) % projects.length
+  return projects[nextIndex]
+}

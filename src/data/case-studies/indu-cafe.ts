@@ -1,7 +1,4 @@
 import type { CaseStudyData } from '../projects'
-import { shot } from '../figma'
-
-const s = (key: string) => shot('indu-cafe', key)
 
 export const induCafe: CaseStudyData = {
   overview: {
@@ -134,14 +131,74 @@ export const induCafe: CaseStudyData = {
       ],
     },
     {
+      id: 'wireframes',
+      title: 'Low-fidelity wireframes',
+      blocks: [
+        {
+          type: 'p',
+          text: 'Low-fidelity dark wireframes exploring order placement, digital menu structure, cart management, active order status, staff operations dashboard, and profile management for the campus cafe ecosystem.',
+        },
+        {
+          type: 'screens',
+          label: 'Low-fidelity wireframes',
+          items: [
+            { src: '/projects/indu-cafe/wire-01.png', alt: 'Low-fidelity wireframe: Order summary and bill items' },
+            { src: '/projects/indu-cafe/wire-02.png', alt: 'Low-fidelity wireframe: User profile and personal account settings' },
+            { src: '/projects/indu-cafe/wire-03.png', alt: 'Low-fidelity wireframe: Digital menu list and categories' },
+            { src: '/projects/indu-cafe/wire-04.png', alt: 'Low-fidelity wireframe: Form inputs and custom item details' },
+            { src: '/projects/indu-cafe/wire-05.png', alt: 'Low-fidelity wireframe: Active order cards with items and price status' },
+            { src: '/projects/indu-cafe/wire-06.png', alt: 'Low-fidelity wireframe: Category food selection with checkboxes and options' },
+            { src: '/projects/indu-cafe/wire-07.png', alt: 'Low-fidelity wireframe: Tabbed item price list and quantity selector' },
+            { src: '/projects/indu-cafe/wire-08.png', alt: 'Low-fidelity wireframe: Upload item photo and food listing management' },
+            { src: '/projects/indu-cafe/wire-09.png', alt: 'Low-fidelity wireframe: Staff operations dashboard and quick food modules' },
+          ],
+          captions: [
+            'Order Summary & Bill',
+            'User Profile Settings',
+            'Digital Menu Browsing',
+            'Order Customization Form',
+            'Active Order Cards',
+            'Category Food Selection',
+            'Price List & Quantity Selector',
+            'Item Upload & Management',
+            'Staff Operations Dashboard',
+          ],
+        },
+      ],
+    },
+    {
       id: 'final-ui',
       title: 'Final UI',
       blocks: [
         {
+          type: 'p',
+          text: 'High-fidelity staff app interface featuring daily overview stats, live kitchen order management, in-stock menu variants, stock replenishment, and business reporting with gold-accented dark UI.',
+        },
+        {
           type: 'screens',
-          label: 'Final UI',
-          items: [s('home'), s('menu'), s('track'), s('staff')],
-          captions: ['Home', 'Digital menu', 'Order tracking', 'Staff dashboard'],
+          label: 'Screen UI',
+          items: [
+            { src: '/projects/indu-cafe/final-01.jpg', alt: 'Final UI: Chef Dashboard & quick actions overview' },
+            { src: '/projects/indu-cafe/final-02.png', alt: 'Final UI: Incoming & active online orders' },
+            { src: '/projects/indu-cafe/final-03.png', alt: 'Final UI: Manage Menu food stock status' },
+            { src: '/projects/indu-cafe/final-04.png', alt: 'Final UI: Add new food item to menu' },
+            { src: '/projects/indu-cafe/final-05.png', alt: 'Final UI: Inventory manager stock levels' },
+            { src: '/projects/indu-cafe/final-06.png', alt: 'Final UI: Add new inventory stock form' },
+            { src: '/projects/indu-cafe/final-07.png', alt: 'Final UI: Billing & payment reports' },
+            { src: '/projects/indu-cafe/final-08.png', alt: 'Final UI: Daily business sales & customer metrics' },
+            { src: '/projects/indu-cafe/final-09.png', alt: 'Final UI: Chef staff profile and account' },
+          ],
+          captions: [
+            'Chef Dashboard & Quick Actions',
+            'Live Kitchen Orders',
+            'Menu Availability & Stock Status',
+            'Add New Food Item',
+            'Inventory Stock Levels',
+            'Add New Stock Form',
+            'Billing & Transaction Reports',
+            'Daily Business Analytics',
+            'Staff Profile Settings',
+          ],
         },
       ],
     },

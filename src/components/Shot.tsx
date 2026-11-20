@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import type { Shot as ShotType } from '../data/projects'
 
-export function ShotImg({ shot, className = '' }: { shot: ShotType; className?: string }) {
+export function ShotImg({ shot, className = '', objectFit = 'cover' }: { shot: ShotType; className?: string; objectFit?: 'cover' | 'contain' }) {
   const [status, setStatus] = useState<'loading' | 'loaded' | 'error'>('loading')
 
   return (
@@ -13,9 +13,9 @@ export function ShotImg({ shot, className = '' }: { shot: ShotType; className?: 
         alt={shot.alt}
         loading="lazy"
         decoding="async"
-        className={`h-full w-full object-cover transition-opacity duration-300 ${
-          status === 'loaded' ? 'opacity-100' : 'opacity-0'
-        }`}
+        className={`h-full w-full transition-opacity duration-300 ${
+          objectFit === 'contain' ? 'object-contain' : 'object-cover'
+        } ${status === 'loaded' ? 'opacity-100' : 'opacity-0'}`}
         onLoad={() => setStatus('loaded')}
         onError={() => setStatus('error')}
       />

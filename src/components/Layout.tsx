@@ -15,9 +15,17 @@ function ScrollToTarget() {
     lastPath.current = pathname
     const calm = matchMedia('(prefers-reduced-motion: reduce)').matches
     const behavior = samePage && !calm ? 'smooth' : 'instant'
-    const target = hash && document.getElementById(hash.slice(1))
-    if (target) target.scrollIntoView({ behavior, block: 'start' })
-    else window.scrollTo({ top: 0, behavior })
+    if (hash) {
+      // Small timeout ensures DOM elements (especially lazy loaded horizontal track) are ready
+      setTimeout(() => {
+        const target = document.getElementById(hash.slice(1))
+        if (target) {
+          target.scrollIntoView({ behavior, block: 'start' })
+        }
+      }, 50)
+    } else {
+      window.scrollTo({ top: 0, behavior })
+    }
   }, [pathname, hash])
   return null
 }

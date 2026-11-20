@@ -2,7 +2,15 @@ import type { Shot } from '../data/projects'
 import { ShotImg } from './Shot'
 
 // Thin wrapper so existing call sites (hero preview, project cards) don't need to change.
-export function Cover({ cover, className = '' }: { cover?: Shot; className?: string }) {
+export function Cover({
+  cover,
+  className = '',
+  objectFit = 'contain',
+}: {
+  cover?: Shot
+  className?: string
+  objectFit?: 'cover' | 'contain'
+}) {
   if (!cover) return <div className={`rounded-sm border border-line bg-fg/5 ${className}`} />
-  return <ShotImg shot={cover} className={className} />
+  return <ShotImg shot={cover} className={className} objectFit={objectFit} />
 }

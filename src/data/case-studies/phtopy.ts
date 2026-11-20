@@ -1,7 +1,4 @@
 import type { CaseStudyData } from '../projects'
-import { shot } from '../figma'
-
-const s = (key: string) => shot('phtopy', key)
 
 // Source: Figma file — Phtopy campus printing app.
 export const phtopy: CaseStudyData = {
@@ -238,14 +235,44 @@ export const phtopy: CaseStudyData = {
       ],
     },
     {
+      id: 'wireframes',
+      title: 'Low-fidelity wireframes',
+      blocks: [
+        {
+          type: 'p',
+          text: 'Initial low-fidelity wireframes exploring the core workflow: home screen upload, notifications and live order updates, order history status, and user shop preferences.',
+        },
+        {
+          type: 'screens',
+          label: 'Low-fidelity wireframes',
+          items: [
+            { src: '/projects/phtopy/wire-01-home.jpg', alt: 'Low-fidelity wireframe: Home screen with file upload and token status' },
+            { src: '/projects/phtopy/wire-02-alerts.jpg', alt: 'Low-fidelity wireframe: Notifications & order queue updates' },
+            { src: '/projects/phtopy/wire-03-history.jpg', alt: 'Low-fidelity wireframe: Order history and tracking status' },
+            { src: '/projects/phtopy/wire-04-settings.jpg', alt: 'Low-fidelity wireframe: Shop settings & preferences' },
+          ],
+          captions: ['Home Wireframe', 'Alerts Wireframe', 'Order History Wireframe', 'Settings Wireframe'],
+        },
+      ],
+    },
+    {
       id: 'final-ui',
       title: 'Final UI',
       blocks: [
         {
+          type: 'p',
+          text: 'High-fidelity dark mode UI screens incorporating Butter Gold accents, structured cards, live pickup token tracking, and comprehensive print management.',
+        },
+        {
           type: 'screens',
-          label: 'Final UI',
-          items: [s('home'), s('settings'), s('paper'), s('layout'), s('bill'), s('upi'), s('tracker'), s('qr'), s('notifications'), s('history')],
-          captions: ['Home', 'Print settings: essentials', 'Paper stock', 'Layout and finishing', 'Bill review', 'UPI payment', 'Live token tracker', 'Counter QR', 'Notifications', 'History'],
+          label: 'Screen UI',
+          items: [
+            { src: '/projects/phtopy/final-01-home.jpg', alt: 'Final UI: Home screen with live token, file upload and print shop status' },
+            { src: '/projects/phtopy/final-02-alerts.jpg', alt: 'Final UI: Notifications with payment confirmation, order queue and pickup alerts' },
+            { src: '/projects/phtopy/final-03-history.jpg', alt: 'Final UI: Order history with live order tracking and token summary' },
+            { src: '/projects/phtopy/final-04-settings.jpg', alt: 'Final UI: Shop & settings with default print preferences and profile' },
+          ],
+          captions: ['Home Screen', 'Notifications & Alerts', 'Order History', 'Shop & Settings'],
         },
         {
           type: 'links',
