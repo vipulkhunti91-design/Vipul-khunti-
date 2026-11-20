@@ -1,0 +1,874 @@
+@import "tailwindcss";
+
+/*
+  Theme tokens. Each <Section data-theme="dark|light"> re-defines the
+  semantic colours below, so components never hard-code a theme.
+  scripts/check-contrast.mjs reads the hex values in these blocks.
+*/
+:root {
+  --accent: #F4D777;
+  --on-accent: #141413;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --radius-control: 0.5rem;
+  --radius-card: 0.75rem;
+  --shadow-soft: 0 8px 24px rgb(0 0 0 / 0.08);
+  --transition-standard: 200ms cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  /* Primary Button Tokens (Champagne Gold) */
+  --btn-primary-bg: #F3C879;
+  --btn-primary-hover: #FFDA91;
+  --btn-primary-active: #DDAA55;
+  --btn-primary-fg: #0B1020;
+
+  /* Disabled Button Tokens */
+  --btn-disabled-bg: #354056;
+  --btn-disabled-fg: #8995A9;
+
+  /* Success text on Primary (Gold) button */
+  --btn-success-on-gold: #1F5E3C;
+}
+
+:root,
+[data-theme="dark"] {
+  --bg: #0B0B0C;
+  --surface: #131315;
+  --fg: #F2F0E8;
+  --muted: #A3A199;
+  --control: #7D7B74;
+  --line: rgb(255 255 255 / 0.12);
+  --accent-text: #F4D777;
+  --focus: #F4D777;
+
+  /* Secondary Button Tokens (Dark Theme) */
+  --btn-secondary-fg: #DCE5F2;
+  --btn-secondary-hover: #F3C879;
+  --btn-secondary-active: #DDAA55;
+  --btn-success-fg: #A7D9B5;
+
+  /* Firefly Tokens (Dark Theme) */
+  --firefly-color: #F4D777;
+  --firefly-glow: color-mix(in srgb, var(--accent) 60%, transparent);
+}
+
+[data-theme="light"] {
+  /* Warm paper canvas keeps case studies cohesive without stark white panels. */
+  --bg: #F7F1E6;
+  --surface: #EFE7D9;
+  --fg: #141413;
+  --muted: #5C5A53;
+  --control: #7A7870;
+  --line: rgb(20 20 19 / 0.14);
+  /* Yellow is a fill on light sections, never text. */
+  --accent-text: #141413;
+  --focus: #141413;
+
+  /* Secondary Button Tokens (Light Theme) */
+  --btn-secondary-fg: #2D3748;
+  --btn-secondary-hover: #925400;
+  --btn-secondary-active: #78350F;
+  --btn-success-fg: #1F5E3C;
+
+  /* Firefly Tokens (Light Theme - Warm antique gold with high contrast) */
+  --firefly-color: #A87318;
+  --firefly-glow: rgba(168, 115, 24, 0.28);
+}
+
+@theme inline {
+  --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-control: var(--control);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-on-accent: var(--on-accent);
+  --color-accent-text: var(--accent-text);
+  --color-focus: var(--focus);
+
+  --text-headline: clamp(2.5rem, 5.4vw, 5rem);
+  --text-headline--line-height: 1.02;
+  --text-headline--letter-spacing: -0.025em;
+  --text-h1: clamp(2.5rem, 7vw, 5rem);
+  --text-h1--line-height: 1;
+  --text-h1--letter-spacing: -0.02em;
+  --text-h2: clamp(2rem, 4.5vw, 3.5rem);
+  --text-h2--line-height: 1.05;
+  --text-h2--letter-spacing: -0.015em;
+  --text-h3: clamp(1.5rem, 2.4vw, 2rem);
+  --text-h3--line-height: 1.15;
+}
+
+@layer base {
+  html {
+    background: var(--bg);
+    /* Keeps anchored sections clear of the 4rem sticky nav. */
+    scroll-padding-top: 4rem;
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  /* Hash destinations remain visible beneath the sticky navigation. */
+  [id] {
+    scroll-margin-top: 4.75rem;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :where(a, button, input, textarea, select, summary):focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+  }
+}
+
+/* The only non-interactive motion: the hero name settles in on load. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.35em);
+  }
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+    filter: blur(4px);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 40%;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rise {
+    animation: rise 700ms cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+  }
+  .rise-2 {
+    animation-delay: 90ms;
+  }
+  .rise-3 {
+    animation-delay: 500ms;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Midnight Fireflies: decorative, CSS-only, hidden when motion is reduced. */
+.firefly {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--s);
+  height: var(--s);
+  border-radius: 9999px;
+  background: var(--firefly-color, var(--accent));
+  box-shadow: 0 0 calc(var(--s) * 3) calc(var(--s) * 0.6)
+    var(--firefly-glow, color-mix(in srgb, var(--accent) 60%, transparent));
+  opacity: 0;
+  transition: background-color 400ms ease, box-shadow 400ms ease;
+}
+
+[data-theme="light"] .firefly {
+  box-shadow: 0 0 calc(var(--s) * 2) calc(var(--s) * 0.35) var(--firefly-glow),
+    0 0 1.5px rgba(120, 80, 10, 0.35);
+}
+
+.firefly-glow {
+  box-shadow: 0 0 12px 3px color-mix(in srgb, var(--accent) 55%, transparent);
+}
+
+[data-theme="light"] .firefly-glow {
+  box-shadow: 0 0 8px 2px rgba(168, 115, 24, 0.3);
+}
+
+[data-theme="light"] .spotlight {
+  display: none !important;
+}
+
+@keyframes firefly {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.7);
+  }
+  20% {
+    opacity: var(--ff-peak);
+  }
+  45% {
+    opacity: calc(var(--ff-peak) * 0.3);
+  }
+  65% {
+    opacity: calc(var(--ff-peak) * 0.9);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--dx), var(--dy), 0) scale(1.1);
+  }
+}
+
+@keyframes beacon {
+  from {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent);
+  }
+  to {
+    box-shadow: 0 0 0 7px transparent;
+  }
+}
+
+@keyframes scroll-drop {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(250%);
+  }
+}
+
+.scroll-line {
+  position: relative;
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .firefly {
+    animation: firefly var(--t) ease-in-out var(--d) infinite;
+  }
+  .availability-dot {
+    animation: beacon 2.4s ease-out infinite;
+  }
+  .scroll-line::after {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 40%;
+    background: var(--accent);
+    animation: scroll-drop 2.2s ease-in-out infinite;
+  }
+}
+
+/* Smooth 400ms fade for fireflies and visual effects */
+.firefly-layer,
+.firefly-cursor,
+.spotlight,
+.beam {
+  transition: opacity 400ms ease, visibility 400ms ease;
+}
+
+/* Disabled visual effects toggle with 400ms smooth fade */
+[data-visual-effects="disabled"] .firefly,
+[data-visual-effects="disabled"] .firefly-layer,
+[data-visual-effects="disabled"] .firefly-cursor,
+[data-visual-effects="disabled"] .spotlight,
+[data-visual-effects="disabled"] .beam {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Theme property transitions on sections and containers */
+section[data-theme],
+header[data-theme],
+footer[data-theme] {
+  transition: background-color 250ms ease, color 250ms ease, border-color 250ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .firefly-layer,
+  .firefly-cursor,
+  .spotlight,
+  .beam {
+    display: none !important;
+  }
+}
+
+/* No cursor effects on touch devices or mobile screens. */
+@media (hover: none), (pointer: coarse), (max-width: 767px) {
+  .firefly-cursor,
+  .spotlight {
+    display: none !important;
+  }
+}
+
+/* Hero headline: words rise in one by one; the accent word fills in and gets underlined. */
+.word {
+  display: inline-block;
+}
+
+.word-accent {
+  position: relative;
+}
+
+.word-accent::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 -0.02em 0;
+  height: 0.07em;
+  background: var(--accent);
+  transform-origin: left;
+}
+
+@keyframes word-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.35em);
+    filter: blur(6px);
+  }
+}
+
+@keyframes fill-in {
+  from {
+    color: transparent;
+    -webkit-text-stroke: 1px var(--fg);
+  }
+}
+
+@keyframes underline-draw {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes float {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-8px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-name .word {
+    animation: word-in 800ms cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+    animation-delay: calc(var(--i) * 75ms + 430ms);
+  }
+  .hero-name .word-accent {
+    animation-name: word-in, fill-in;
+    animation-duration: 800ms, 900ms;
+    animation-delay: calc(var(--i) * 75ms + 430ms), 1100ms;
+    animation-fill-mode: backwards;
+  }
+  .hero-name .word-accent::after {
+    animation: underline-draw 900ms cubic-bezier(0.2, 0.7, 0.2, 1) 1100ms backwards;
+  }
+  .float {
+    animation: float 6s ease-in-out infinite alternate;
+  }
+  .float:nth-child(2) {
+    animation-duration: 7s;
+    animation-delay: -2s;
+  }
+  .float:nth-child(3) {
+    animation-delay: -4s;
+  }
+}
+
+/* Coordinated hero text sequence. */
+.hero-greeting {
+  min-height: 1.5rem;
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.hero-greeting.is-changing {
+  opacity: 0;
+  transform: translateY(-0.25rem);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-greeting {
+    animation: hero-copy-in 520ms cubic-bezier(0.2, 0.7, 0.2, 1) 100ms backwards;
+  }
+
+  .hero-role,
+  .hero-intro,
+  .hero-cta {
+    animation: hero-copy-in 650ms cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+  }
+
+  .hero-role { animation-delay: 800ms; }
+  .hero-intro { animation-delay: 960ms; }
+  .hero-cta { animation-delay: 1120ms; }
+
+}
+
+@keyframes hero-copy-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.7rem);
+  }
+}
+
+/* Soft golden light that follows the mouse. Fixed attachment keeps it aligned to the viewport. */
+.spotlight {
+  background: radial-gradient(
+    380px circle at var(--sx, -999px) var(--sy, -999px),
+    color-mix(in srgb, var(--accent) 10%, transparent),
+    transparent 70%
+  );
+  background-attachment: fixed;
+  opacity: 0;
+}
+
+/*
+  Hero light beam: a soft vertical shaft of golden light in the gutter between the
+  text and the previews. Peak strength 18% above the text, so text on top keeps AA contrast
+  (the mask softens it behind the text; the contrast script checks the worst case
+  with the spotlight stacked).
+*/
+.beam {
+  left: 51%;
+  width: clamp(120px, 14vw, 220px);
+  transform: translateX(-50%);
+  /* Strongest above the headline, softer behind the text, gone before the bottom. */
+  -webkit-mask-image: linear-gradient(to bottom, #000, rgb(0 0 0 / 0.45) 35%, transparent 90%);
+  mask-image: linear-gradient(to bottom, #000, rgb(0 0 0 / 0.45) 35%, transparent 90%);
+}
+
+.beam::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    transparent,
+    color-mix(in srgb, var(--accent) 18%, transparent) 50%,
+    transparent
+  );
+  filter: blur(18px);
+}
+
+@media (max-width: 1023px) {
+  .beam {
+    left: 78%;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .beam {
+    animation: beam-breathe 7s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes beam-breathe {
+  from {
+    opacity: 0.7;
+  }
+}
+
+/* Project Card hover zoom */
+.project-card-cover img {
+  transition: transform 500ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.group:hover .project-card-cover img {
+  transform: scale(1.04);
+}
+
+/* Case studies share the portfolio's warm paper canvas while each project's own
+   screen artwork remains untouched. These effects are deliberately restrained. */
+.case-study-section {
+  border-color: color-mix(in srgb, var(--line) 78%, transparent);
+}
+
+.case-screen-card .group\/shot {
+  background: color-mix(in srgb, var(--surface) 82%, var(--bg));
+  transition: transform 260ms cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 260ms ease, border-color 260ms ease;
+}
+
+.case-screen-card img {
+  object-fit: contain;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .case-screen-card:hover .group\/shot {
+    transform: translateY(-0.35rem);
+    border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+    box-shadow: 0 14px 30px rgb(20 20 19 / 0.14);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .case-study-section {
+    animation: case-section-in 560ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    animation-timeline: view();
+    animation-range: entry 4% entry 26%;
+  }
+
+  .case-screen-card {
+    animation: case-screen-in 460ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    animation-timeline: view();
+    animation-range: entry 2% entry 22%;
+  }
+}
+
+@keyframes case-section-in {
+  from { opacity: 0; transform: translateY(1rem); }
+}
+
+@keyframes case-screen-in {
+  from { opacity: 0; transform: translateY(0.75rem) scale(0.985); }
+}
+
+/* Wing flutter animations for stylized firefly */
+@keyframes wing-flutter-left {
+  0%, 100% {
+    transform: rotate(-10deg) scaleY(1);
+  }
+  50% {
+    transform: rotate(24deg) scaleY(0.7);
+  }
+}
+
+@keyframes wing-flutter-right {
+  0%, 100% {
+    transform: rotate(10deg) scaleY(1);
+  }
+  50% {
+    transform: rotate(-24deg) scaleY(0.7);
+  }
+}
+
+.animate-wing-left {
+  animation: wing-flutter-left 140ms ease-in-out infinite alternate;
+}
+
+.animate-wing-right {
+  animation: wing-flutter-right 140ms ease-in-out infinite alternate;
+}
+
+/* Subtle glowing accent for playground interactive elements */
+.playground-item {
+  transition: border-color 250ms ease, box-shadow 250ms ease, transform 250ms ease;
+}
+
+.playground-item:hover {
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--line));
+}
+
+/* Easter egg golden aura */
+.firefly-easter-egg {
+  animation: beacon 1.8s ease-out infinite;
+}
+
+/* A dark section rising over a light one gets a fine golden rim. */
+.edge-glow {
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Premium Button & Interaction System                                       */
+/* -------------------------------------------------------------------------- */
+.btn-primary {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-fg);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25rem;
+  padding: 0.625rem 1.5rem;
+  border: 1px solid var(--btn-primary-bg);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  transition: all 200ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: var(--btn-primary-hover);
+  border-color: var(--btn-primary-hover);
+  filter: brightness(1.03);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(243, 200, 121, 0.28);
+}
+
+.btn-primary:active {
+  background-color: var(--btn-primary-active);
+  border-color: var(--btn-primary-active);
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 2px 8px rgba(221, 170, 85, 0.2);
+}
+
+.btn-primary:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+  box-shadow: none;
+}
+
+.btn-primary:disabled,
+.btn-primary[aria-disabled="true"] {
+  background-color: var(--btn-disabled-bg) !important;
+  color: var(--btn-disabled-fg) !important;
+  border-color: var(--btn-disabled-bg) !important;
+  box-shadow: none !important;
+  transform: none !important;
+  filter: none !important;
+  cursor: not-allowed !important;
+  pointer-events: none;
+}
+
+/* Secondary Button - Minimal Text Style */
+.btn-secondary {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.375rem;
+  background: transparent;
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.5rem 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25rem;
+  color: var(--btn-secondary-fg);
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+  transition: color 200ms ease, transform 200ms ease;
+}
+
+.btn-secondary::after {
+  content: "";
+  position: absolute;
+  bottom: 0.375rem;
+  left: 0.25rem;
+  right: 0.25rem;
+  height: 1px;
+  background-color: var(--btn-secondary-hover);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 200ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.btn-secondary:hover {
+  color: var(--btn-secondary-hover);
+}
+
+.btn-secondary:hover::after {
+  transform: scaleX(1);
+}
+
+.btn-secondary:active {
+  color: var(--btn-secondary-active);
+  transform: translateY(0.5px);
+}
+
+.btn-secondary .btn-arrow {
+  display: inline-block;
+  transition: transform 200ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.btn-secondary:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+.btn-secondary:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 0.25rem;
+}
+
+.btn-secondary:disabled,
+.btn-secondary[aria-disabled="true"] {
+  color: var(--btn-disabled-fg) !important;
+  cursor: not-allowed !important;
+  pointer-events: none;
+}
+
+.btn-secondary:disabled::after,
+.btn-secondary[aria-disabled="true"]::after {
+  display: none !important;
+}
+
+/* Success state indicator */
+.btn-success-state {
+  color: var(--btn-success-fg) !important;
+}
+
+.btn-primary.btn-success-state {
+  color: var(--btn-success-on-gold) !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Specular Button (Glass with cursor-following reflection)                  */
+/* -------------------------------------------------------------------------- */
+.btn-specular {
+  position: relative;
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: var(--fg);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25rem;
+  padding: 0.625rem 1.5rem;
+  overflow: hidden;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color 250ms ease, box-shadow 250ms ease, transform 150ms ease, background-color 250ms ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="light"] .btn-specular {
+  background: rgba(20, 20, 19, 0.04);
+  border-color: rgba(20, 20, 19, 0.14);
+  color: #141413;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.btn-specular::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    140px circle at var(--mx, -100px) var(--my, -100px),
+    rgba(243, 200, 121, 0.32),
+    transparent 75%
+  );
+  opacity: 0;
+  transition: opacity 300ms ease;
+  pointer-events: none;
+}
+
+[data-theme="light"] .btn-specular::before {
+  background: radial-gradient(
+    140px circle at var(--mx, -100px) var(--my, -100px),
+    rgba(243, 200, 121, 0.45),
+    transparent 75%
+  );
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn-specular:hover::before {
+    opacity: 1;
+  }
+}
+
+.btn-specular:hover {
+  border-color: rgba(243, 200, 121, 0.55);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2), 0 0 16px rgba(243, 200, 121, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transform: translateY(-1px);
+}
+
+[data-theme="light"] .btn-specular:hover {
+  border-color: rgba(180, 120, 20, 0.45);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08), 0 0 14px rgba(243, 200, 121, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.btn-specular:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.btn-specular:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Navigation Text Reveal (Pure CSS Stacked Layers)                          */
+/* -------------------------------------------------------------------------- */
+.nav-reveal-link {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav-reveal-track {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  height: 1.25rem;
+  line-height: 1.25rem;
+}
+
+.nav-reveal-base {
+  display: inline-block;
+  transform: translateY(0%);
+  transition: transform 260ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.nav-reveal-hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-block;
+  transform: translateY(100%);
+  color: #F3C879;
+  transition: transform 260ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.nav-reveal-link:hover .nav-reveal-base,
+.nav-reveal-link:focus-visible .nav-reveal-base {
+  transform: translateY(-100%);
+}
+
+.nav-reveal-link:hover .nav-reveal-hover,
+.nav-reveal-link:focus-visible .nav-reveal-hover {
+  transform: translateY(0%);
+}
+
+.nav-reveal-link.is-active .nav-reveal-base {
+  color: #F3C879;
+  font-weight: 500;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-reveal-base,
+  .nav-reveal-hover {
+    transition: none !important;
+  }
+  .nav-reveal-hover {
+    display: none !important;
+  }
+  .nav-reveal-link:hover .nav-reveal-base,
+  .nav-reveal-link:focus-visible .nav-reveal-base {
+    transform: none !important;
+    color: #F3C879;
+  }
+}

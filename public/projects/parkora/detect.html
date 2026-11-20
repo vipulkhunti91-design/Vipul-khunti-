@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html>
+<body style="margin:0; background:#fff;">
+<img id="pdf" src="/projects/parkora/pdf_full_render.png" />
+<canvas id="c"></canvas>
+<script>
+window.getCropData = async function() {
+  const img = document.getElementById('pdf');
+  await new Promise(r => { if (img.complete) r(); else img.onload = r; });
+  const W = img.naturalWidth;
+  const H = img.naturalHeight;
+  const canvas = document.getElementById('c');
+  canvas.width = W;
+  canvas.height = H;
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(img, 0, 0);
+  const idata = ctx.getImageData(0, 0, W, H);
+  const data = idata.data;
+
+  console.log('Image dimensions:', W, H);
+
+  // Top screens: sample x at y = 400
+  const yTop = 400;
+  const topColumns = [];
+  for (let x = 0; x < W; x++) {
+    const idx = (yTop * W + x) * 4;
+    const r = data[idx], g = data[idx+1], b = data[idx+2];
+    const isContent = !(r > 245 && g > 245 && b > 245);
+    topColumns.push(isContent);
+  }
+
+  const topSpans = [];
+  let inSpan = false;
+  let startX = 0;
+  for (let x = 0; x < W; x++) {
+    if (topColumns[x] && !inSpan) {
+      inSpan = true;
+      startX = x;
+    } else if (!topColumns[x] && inSpan) {
+      if (x - startX > 80) {
+        topSpans.push({ startX, endX: x, width: x - startX });
+      }
+      inSpan = false;
+    }
+  }
+  if (inSpan && W - startX > 80) {
+    topSpans.push({ startX, endX: W, width: W - startX });
+  }
+
+  // Bottom screen: sample x at y = 1200
+  const yBottom = 1200;
+  const bottomColumns = [];
+  for (let x = 0; x < W; x++) {
+    const idx = (yBottom * W + x) * 4;
+    const r = data[idx], g = data[idx+1], b = data[idx+2];
+    const isContent = !(r > 245 && g > 245 && b > 245);
+    bottomColumns.push(isContent);
+  }
+  const bottomSpans = [];
+  inSpan = false;
+  startX = 0;
+  for (let x = 0; x < W; x++) {
+    if (bottomColumns[x] && !inSpan) {
+      inSpan = true;
+      startX = x;
+    } else if (!bottomColumns[x] && inSpan) {
+      if (x - startX > 80) {
+        bottomSpans.push({ startX, endX: x, width: x - startX });
+      }
+      inSpan = false;
+    }
+  }
+
+  function getVerticalBounds(x1, x2, yMin, yMax) {
+    let topY = yMax;
+    let bottomY = yMin;
+    for (let y = yMin; y < yMax; y++) {
+      let hasContent = false;
+      for (let x = x1; x < x2; x += 4) {
+        const idx = (y * W + x) * 4;
+        const r = data[idx], g = data[idx+1], b = data[idx+2];
+        if (!(r > 245 && g > 245 && b > 245)) {
+          hasContent = true;
+          break;
+        }
+      }
+      if (hasContent) {
+        if (y < topY) topY = y;
+        if (y > bottomY) bottomY = y;
+      }
+    }
+    return { topY, bottomY, height: bottomY - topY };
+  }
+
+  const topBoxes = topSpans.map(s => {
+    const v = getVerticalBounds(s.startX, s.endX, 50, Math.floor(H * 0.6));
+    return { x: s.startX, y: v.topY, w: s.width, h: v.height };
+  });
+
+  const bottomBoxes = bottomSpans.map(s => {
+    const v = getVerticalBounds(s.startX, s.endX, Math.floor(H * 0.45), H);
+    return { x: s.startX, y: v.topY, w: s.width, h: v.height };
+  });
+
+  return { W, H, topBoxes, bottomBoxes };
+};
+
+window.cropRegions = function(boxes) {
+  const img = document.getElementById('pdf');
+  const results = {};
+  for (const [name, b] of Object.entries(boxes)) {
+    const oc = document.createElement('canvas');
+    oc.width = b.w;
+    oc.height = b.h;
+    const octx = oc.getContext('2d');
+    octx.drawImage(img, b.x, b.y, b.w, b.h, 0, 0, b.w, b.h);
+    results[name] = oc.toDataURL('image/png').replace(/^data:image\/png;base64,/, '');
+  }
+  return results;
+};
+</script>
+</body>
+</html>

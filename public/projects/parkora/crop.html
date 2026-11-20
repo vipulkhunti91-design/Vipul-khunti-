@@ -1,0 +1,23 @@
+
+<!DOCTYPE html>
+<html>
+<body style="margin:0; background:#fff;">
+<img id="pdf" src="/projects/parkora/pdf_full_render.png" />
+<script>
+window.cropAll = function() {
+  const img = document.getElementById('pdf');
+  const boxes = {"final-nearby":{"x":312,"y":114,"w":350,"h":764},"final-profile":{"x":686,"y":150,"w":350,"h":764},"final-booking":{"x":1066,"y":150,"w":350,"h":764},"final-profile-edit":{"x":1445,"y":150,"w":350,"h":764},"final-history":{"x":2204,"y":150,"w":350,"h":764},"final-details":{"x":1825,"y":917,"w":350,"h":764}};
+  const results = {};
+  for (const [name, b] of Object.entries(boxes)) {
+    const c = document.createElement('canvas');
+    c.width = b.w;
+    c.height = b.h;
+    const ctx = c.getContext('2d');
+    ctx.drawImage(img, b.x, b.y, b.w, b.h, 0, 0, b.w, b.h);
+    results[name] = c.toDataURL('image/png').replace(/^data:image\/png;base64,/, '');
+  }
+  return results;
+};
+</script>
+</body>
+</html>

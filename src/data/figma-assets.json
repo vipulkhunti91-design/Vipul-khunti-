@@ -1,0 +1,79 @@
+{
+  "fileKey": "nf8AXJAem4eU0YBcIKSCfD",
+  "projects": {
+    "phtopy": {
+      "home": { "node": "529:18344", "alt": "Home screen with file upload, live Now Serving token and shop status" },
+      "settings": { "node": "529:18422", "alt": "Print settings: essentials" },
+      "paper": { "node": "529:18491", "alt": "Print settings: paper stock" },
+      "layout": { "node": "529:18567", "alt": "Print settings: layout and finishing" },
+      "bill": { "node": "529:18646", "alt": "Checkout: bill review" },
+      "upi": { "node": "529:18697", "alt": "Payment: UPI and QR" },
+      "tracker": { "node": "529:18845", "alt": "Live order and queue tracking with pickup token, queue position and order lifecycle" },
+      "qr": { "node": "529:18916", "alt": "Pickup: counter QR code" },
+      "notifications": { "node": "529:18936", "alt": "Notifications with unread order updates" },
+      "history": { "node": "529:18995", "alt": "Order history" }
+    },
+    "indu-cafe": {
+      "home": { "node": "PENDING", "alt": "Indu Cafe home screen" },
+      "menu": { "node": "PENDING", "alt": "Digital menu screen" },
+      "track": { "node": "PENDING", "alt": "Order tracking screen" },
+      "staff": { "node": "PENDING", "alt": "Staff order management screen" }
+    },
+    "red-bus-kids": {
+      "screen-01": { "node": "42:227", "alt": "RedBus Kids screen 1" },
+      "screen-03": { "node": "79:624", "alt": "RedBus Kids screen 3" },
+      "screen-04": { "node": "105:46", "alt": "RedBus Kids screen 4" },
+      "screen-05": { "node": "108:304", "alt": "RedBus Kids screen 5" },
+      "screen-06": { "node": "112:2992", "alt": "RedBus Kids screen 6" },
+      "screen-07": { "node": "112:3092", "alt": "RedBus Kids screen 7" },
+      "screen-08": { "node": "114:3245", "alt": "RedBus Kids screen 8" },
+      "screen-09": { "node": "114:3444", "alt": "RedBus Kids screen 9" },
+      "screen-10": { "node": "114:3572", "alt": "RedBus Kids screen 10" },
+      "screen-11": { "node": "124:338", "alt": "RedBus Kids screen 11" },
+      "screen-12": { "node": "132:554", "alt": "RedBus Kids screen 12" },
+      "screen-13": { "node": "136:895", "alt": "RedBus Kids screen 13" },
+      "screen-14": { "node": "138:2186", "alt": "RedBus Kids screen 14" },
+      "screen-15": { "node": "142:2727", "alt": "RedBus Kids screen 15" },
+      "screen-16": { "node": "146:2797", "alt": "RedBus Kids screen 16" },
+      "screen-17": { "node": "152:2910", "alt": "RedBus Kids screen 17" },
+      "screen-18": { "node": "153:270", "alt": "RedBus Kids screen 18" },
+      "screen-19": { "node": "173:1280", "alt": "RedBus Kids screen 19" },
+      "screen-20": { "node": "173:1374", "alt": "RedBus Kids screen 20" },
+      "screen-22": { "node": "175:2295", "alt": "RedBus Kids screen 22" },
+      "screen-23": { "node": "191:291", "alt": "RedBus Kids screen 23" },
+      "screen-24": { "node": "197:636", "alt": "RedBus Kids screen 24" },
+      "screen-25": { "node": "197:678", "alt": "RedBus Kids screen 25" },
+      "screen-26": { "node": "197:747", "alt": "RedBus Kids screen 26" },
+      "screen-27": { "node": "197:864", "alt": "RedBus Kids screen 27" },
+      "screen-28": { "node": "342:2052", "alt": "RedBus Kids screen 28" },
+      "screen-29": { "node": "386:1748", "alt": "RedBus Kids screen 29" },
+      "screen-30": { "node": "387:1894", "alt": "RedBus Kids screen 30" },
+      "welcome": { "node": "191:291", "alt": "Welcome screen: Let's go! Your bus adventure starts here" },
+      "home": { "node": "197:864", "alt": "Home screen with bus number, driver, arrival time and quick actions" },
+      "book": { "node": "132:554", "alt": "Book a ride: where are you going, with saved places" },
+      "date": { "node": "136:895", "alt": "Booking step 3 of 7: pick a date and time" },
+      "bus": { "node": "138:2186", "alt": "Booking step 4 of 7: choose your bus" },
+      "seat": { "node": "142:2727", "alt": "Booking step 5 of 7: pick your seat" },
+      "approval": { "node": "146:2797", "alt": "Booking step 6 of 7: review booking, parent approval needed" },
+      "confirmed": { "node": "152:2910", "alt": "Booking step 7 of 7: booking confirmed" },
+      "track": { "node": "79:624", "alt": "Live tracking with bus details, mini map and SOS button" },
+      "safety": { "node": "108:304", "alt": "Safety tips screen" },
+      "notifications": { "node": "124:338", "alt": "Notifications: bus arrival, safe arrival and rewards" },
+      "profile": { "node": "175:2295", "alt": "Profile with child and parent details" }
+    },
+    "parkora": {
+      "home": { "node": "529:9521", "alt": "Low-fidelity wireframe: home with search, QR card, parking list and emergency call sheet" },
+      "list": { "node": "529:7851", "alt": "Low-fidelity wireframe: nearby parking list with emergency call sheet" },
+      "wire3": { "node": "529:8018", "alt": "Low-fidelity wireframe" },
+      "wire4": { "node": "529:8094", "alt": "Low-fidelity wireframe" },
+      "wire5": { "node": "529:8379", "alt": "Low-fidelity wireframe" },
+      "wire6": { "node": "529:8435", "alt": "Low-fidelity wireframe" }
+    },
+    "sanjivni": {
+      "login": { "node": "529:11615", "alt": "Black and white wireframe: login and sign up" },
+      "home": { "node": "529:11622", "alt": "Black and white wireframe: home" },
+      "stores": { "node": "529:11643", "alt": "Black and white wireframe: nearby medical stores" },
+      "delivery": { "node": "529:11632", "alt": "Black and white wireframe: delivery" }
+    }
+  }
+}
