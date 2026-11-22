@@ -17,9 +17,25 @@ export function Nav() {
   const [open, setOpen] = useState(false)
   const [activeHash, setActiveHash] = useState<string>('')
   const [scrollProgress, setScrollProgress] = useState(0)
-  const [effectsEnabled, setEffectsEnabled] = useState(true)
+  const [effectsEnabled, setEffectsEnabled] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('visual-effects')
+      if (stored !== null) return stored === 'enabled'
+      return false
+    }
+    return false
+  })
   const button = useRef<HTMLButtonElement>(null)
   const location = useLocation()
+
+  // Initialize visual effects attribute on mount
+  useEffect(() => {
+    if (effectsEnabled) {
+      document.documentElement.removeAttribute('data-visual-effects')
+    } else {
+      document.documentElement.setAttribute('data-visual-effects', 'disabled')
+    }
+  }, [effectsEnabled])
 
   // Track scroll exploration progress bar
   useEffect(() => {
@@ -38,25 +54,34 @@ export function Nav() {
   useEffect(() => {
     if (location.pathname !== '/') return
 
-    const sections = ['work', 'about', 'skills', 'contact']
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveHash(entry.target.id)
+    const handleScrollActive = () => {
+      // If at the very top of the page, no section link should be highlighted
+      if (window.scrollY < 200) {
+        setActiveHash('')
+        return
+      }
+
+      const sections = ['contact', 'skills', 'about', 'work']
+      const viewportMid = window.innerHeight * 0.4
+      let found = ''
+
+      for (const id of sections) {
+        const el = document.getElementById(id)
+        if (el) {
+          const rect = el.getBoundingClientRect()
+          if (rect.top <= viewportMid && rect.bottom > 80) {
+            found = id
+            break
           }
-        })
-      },
-      { rootMargin: '-20% 0px -65% 0px' }
-    )
+        }
+      }
+      setActiveHash(found)
+    }
 
-    sections.forEach((id) => {
-      const el = document.getElementById(id)
-      if (el) observer.observe(el)
-    })
-
-    return () => observer.disconnect()
-  }, [location.pathname])
+    handleScrollActive()
+    window.addEventListener('scroll', handleScrollActive, { passive: true })
+    return () => window.removeEventListener('scroll', handleScrollActive)
+  }, [location.pathname, location.hash])
 
   useEffect(() => {
     if (!open) return
@@ -75,8 +100,10 @@ export function Nav() {
     setEffectsEnabled(next)
     if (next) {
       document.documentElement.removeAttribute('data-visual-effects')
+      localStorage.setItem('visual-effects', 'enabled')
     } else {
       document.documentElement.setAttribute('data-visual-effects', 'disabled')
+      localStorage.setItem('visual-effects', 'disabled')
     }
   }
 
