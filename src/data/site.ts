@@ -233,7 +233,7 @@ export const site: {
   learningGoals: [],
   email: 'vipulkhunti91@gmail.com',
   links: [],
-  resume: 'https://drive.google.com/file/d/1dJBmaQ8AflIQK2qcL2_SE-G15fHNtz4B/view?usp=sharing',
+  resume: 'https://drive.google.com/file/d/1Y1WzYhl335BDrSX3cSGN2v9OsKj3n5in/view?usp=drive_link',
   social: [
     { label: 'WhatsApp', href: 'https://wa.me/917096447726', platform: 'whatsapp' },
     { label: 'LinkedIn', href: 'https://www.linkedin.com/in/vipul-khunti-2464313a3/', platform: 'linkedin' },
