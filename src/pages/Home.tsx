@@ -328,7 +328,7 @@ export function Home() {
                 onClick={() => handleCopyEmail(site.email!)}
                 variant="specular"
                 arrow={false}
-                className={`gap-2.5 transition-all duration-300 hover:shadow-[0_0_22px_rgba(243,200,121,0.25)] hover:-translate-y-0.5 ${copied ? 'btn-success-state' : ''}`}
+                className={`group/copy gap-2.5 transition-all duration-300 hover:shadow-[0_0_24px_rgba(243,200,121,0.3)] hover:-translate-y-1 active:scale-95 ${copied ? 'btn-success-state' : ''}`}
               >
                 {copied ? (
                   <>
@@ -340,11 +340,11 @@ export function Home() {
                       strokeWidth="2.5"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className="size-4 shrink-0 text-accent"
+                      className="size-4 shrink-0 text-accent copy-check-icon"
                     >
                       <polyline points="20 6 9 17 4 12" />
                     </svg>
-                    <span>Email Copied!</span>
+                    <span className="font-medium animate-pulse">Email Copied!</span>
                   </>
                 ) : (
                   <>
@@ -356,7 +356,7 @@ export function Home() {
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className="size-4 shrink-0"
+                      className="size-4 shrink-0 copy-icon-hover"
                     >
                       <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
                       <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
