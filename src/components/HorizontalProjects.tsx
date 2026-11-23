@@ -472,10 +472,10 @@ function ProjectPanel({
           <div className="mt-7">
             <Link
               to={`/work/${project.slug}`}
-              className="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-5 py-2.5 text-xs font-semibold text-accent transition-all duration-200 hover:bg-accent hover:text-on-accent hover:shadow-[0_0_16px_rgba(244,215,119,0.35)]"
+              className="group/btn inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-5 py-2.5 text-xs font-semibold text-accent transition-all duration-300 hover:bg-accent hover:text-on-accent hover:scale-105 hover:shadow-[0_0_20px_rgba(244,215,119,0.4)] active:scale-95"
             >
               <span>View Case Study</span>
-              <span aria-hidden className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
+              <span aria-hidden className="transition-transform duration-300 group-hover/btn:translate-x-1.5">→</span>
             </Link>
           </div>
         </div>

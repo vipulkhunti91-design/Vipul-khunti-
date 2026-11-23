@@ -73,8 +73,8 @@ function StatCard({ stat }: { stat: { value: string; label: string } }) {
   }, [stat.value])
 
   return (
-    <div ref={cardRef} className="rounded-xl border border-line bg-surface p-5 shadow-sm">
-      <p aria-label={stat.value} className="font-serif text-3xl font-normal text-fg">
+    <div ref={cardRef} className="group rounded-xl border border-line bg-surface p-5 shadow-sm transition-all duration-300 hover:border-accent/50 hover:-translate-y-1 hover:shadow-lg hover:shadow-[0_8px_20px_rgba(244,215,119,0.1)]">
+      <p aria-label={stat.value} className="font-serif text-3xl font-normal text-fg group-hover:text-accent transition-colors">
         {displayValue}
       </p>
       <p className="mt-1 text-xs text-muted leading-relaxed">{stat.label}</p>
@@ -146,7 +146,7 @@ function BlockView({ block }: { block: Block }) {
           {block.title && <h3 className="text-sm font-semibold uppercase tracking-wider text-fg/80 mb-3">{block.title}</h3>}
           <div className={`grid gap-4 ${block.cols === 3 ? 'sm:grid-cols-2 lg:grid-cols-3' : 'sm:grid-cols-2'}`}>
             {block.items.map((c, i) => (
-              <div key={i} className="rounded-xl border border-line bg-surface p-5 shadow-sm">
+              <div key={i} className="rounded-xl border border-line bg-surface p-5 shadow-sm transition-all duration-300 hover:border-accent/40 hover:-translate-y-0.5 hover:shadow-md">
                 <p className="text-sm font-semibold text-fg">{c.title}</p>
                 <p className="mt-2 text-sm text-fg/80 leading-relaxed">{c.text}</p>
               </div>
@@ -162,7 +162,7 @@ function BlockView({ block }: { block: Block }) {
           <ol className="flex flex-wrap gap-3">
             {block.items.map((step, i) => (
               <li key={i} className="flex items-center gap-3">
-                <div className="rounded-full border border-line bg-surface px-4 py-2 text-sm shadow-sm">
+                <div className="rounded-full border border-line bg-surface px-4 py-2 text-sm shadow-sm transition-all duration-200 hover:border-accent/40 hover:scale-105 cursor-default">
                   <span className="mr-1.5 text-accent-text font-bold">{String(i + 1).padStart(2, '0')}</span>
                   <span className="font-medium text-fg">{step.title}</span>
                   {step.text && <span className="ml-1.5 text-muted">— {step.text}</span>}

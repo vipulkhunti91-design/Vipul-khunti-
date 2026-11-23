@@ -35,7 +35,7 @@ export function BentoGrid({ items, className = '' }: BentoGridProps) {
         return (
           <div
             key={item.id}
-            className={`group relative flex flex-col justify-between rounded-2xl border border-line bg-surface/80 p-6 md:p-7 backdrop-blur-sm transition-all duration-300 hover:border-accent/50 hover:-translate-y-1 hover:shadow-xl hover:shadow-[0_8px_30px_rgba(243,200,121,0.08)] ${
+            className={`group relative flex flex-col justify-between rounded-2xl border border-line bg-surface/80 p-6 md:p-7 backdrop-blur-sm transition-all duration-300 hover:border-accent/60 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-[0_12px_36px_rgba(243,200,121,0.14)] ${
               isWide ? 'md:col-span-2' : 'md:col-span-1'
             }`}
           >
@@ -50,7 +50,7 @@ export function BentoGrid({ items, className = '' }: BentoGridProps) {
             {/* Kokonut UI Signature: Subtle gradient border on hover */}
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute inset-0 -z-10 rounded-2xl p-px bg-gradient-to-br from-accent/25 via-transparent to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              className="pointer-events-none absolute inset-0 -z-10 rounded-2xl p-px bg-gradient-to-br from-accent/30 via-transparent to-accent/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
             />
 
             {/* Content Top */}
@@ -58,7 +58,7 @@ export function BentoGrid({ items, className = '' }: BentoGridProps) {
               {/* Card Header: Icon + Number + Title + Status Badge */}
               <div className="flex items-start justify-between gap-4 border-b border-line/60 pb-5">
                 <div className="flex items-center gap-3.5">
-                  <div className="size-10 rounded-xl flex items-center justify-center border border-line bg-bg/80 text-accent group-hover:border-accent/40 group-hover:bg-accent/10 transition-all duration-300 shrink-0">
+                  <div className="size-10 rounded-xl flex items-center justify-center border border-line bg-bg/80 text-accent group-hover:border-accent/50 group-hover:bg-accent/15 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shrink-0 shadow-sm">
                     {item.icon}
                   </div>
                   <div>
@@ -76,7 +76,7 @@ export function BentoGrid({ items, className = '' }: BentoGridProps) {
                   </div>
                 </div>
 
-                <span className="shrink-0 rounded-full border border-line/80 bg-bg px-2.5 py-1 text-[11px] font-medium font-mono text-muted group-hover:border-accent/30 group-hover:text-fg transition-colors">
+                <span className="shrink-0 rounded-full border border-line/80 bg-bg px-2.5 py-1 text-[11px] font-medium font-mono text-muted group-hover:border-accent/40 group-hover:text-fg group-hover:scale-105 transition-all duration-200">
                   {item.badge}
                 </span>
               </div>

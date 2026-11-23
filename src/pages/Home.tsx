@@ -79,7 +79,7 @@ export function Home() {
         size="hero"
       >
         <div className="max-w-[44rem]">
-            <p className="rise inline-flex min-h-9 items-center gap-2.5 rounded-full border border-line px-4 text-sm bg-surface/50 backdrop-blur-sm">
+            <p className="rise badge-interactive inline-flex min-h-9 items-center gap-2.5 rounded-full border border-line px-4 text-sm bg-surface/50 backdrop-blur-sm cursor-default">
               <span aria-hidden className="availability-dot size-2 rounded-full bg-accent" />
               {site.status}
             </p>
@@ -166,7 +166,7 @@ export function Home() {
                 {site.interests.map((interest) => (
                   <span
                     key={interest}
-                    className="inline-flex items-center gap-1.5 rounded-full border border-line/80 bg-surface/80 px-3 py-1 text-xs font-medium text-fg/90 transition-colors hover:border-control hover:bg-surface"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-line/80 bg-surface/80 px-3 py-1 text-xs font-medium text-fg/90 transition-all duration-200 hover:border-accent/60 hover:bg-accent/10 hover:text-accent hover:scale-105 cursor-default shadow-xs"
                   >
                     <span aria-hidden className="size-1 rounded-full bg-accent" />
                     {interest}
@@ -222,16 +222,16 @@ export function Home() {
             {site.educationHistory?.map((edu) => (
               <div
                 key={edu.number}
-                className="group relative flex flex-col justify-between rounded-xl border border-line bg-surface/50 p-6 backdrop-blur-sm transition-all duration-300 hover:border-accent/40 hover:bg-surface/80 hover:-translate-y-1 hover:shadow-lg hover:shadow-[0_8px_24px_rgba(243,200,121,0.08)]"
+                className="group relative flex flex-col justify-between rounded-xl border border-line bg-surface/50 p-6 backdrop-blur-sm transition-all duration-300 hover:border-accent/60 hover:bg-surface/90 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-[0_12px_28px_rgba(243,200,121,0.12)] cursor-default"
               >
                 <div>
                   <div className="flex items-center justify-between">
-                    <span className="font-serif text-2xl text-muted font-normal group-hover:text-fg transition-colors">
+                    <span className="font-serif text-2xl text-muted font-normal group-hover:text-accent group-hover:scale-110 transition-all duration-300">
                       {edu.number}
                     </span>
                     <span className="text-xs font-mono text-muted/80">{edu.period}</span>
                   </div>
-                  <h4 className="mt-4 text-base font-semibold text-fg">
+                  <h4 className="mt-4 text-base font-semibold text-fg group-hover:text-accent transition-colors duration-200">
                     {edu.degree}
                   </h4>
                   {edu.focus && (
