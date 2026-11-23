@@ -111,9 +111,6 @@ export function Home() {
               <ButtonLink to="/#about" className="transition-all duration-200 hover:shadow-[0_0_22px_rgba(243,200,121,0.35)] hover:-translate-y-0.5">
                 Get to Know Me
               </ButtonLink>
-              <ButtonLink to="/#work" variant="secondary" className="transition-all duration-200 hover:shadow-[0_0_16px_rgba(243,200,121,0.2)] hover:-translate-y-0.5">
-                Explore My Work
-              </ButtonLink>
             </div>
         </div>
       </Section>
