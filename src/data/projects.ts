@@ -38,6 +38,7 @@ export type Project = {
   summary: string // one or two short sentences for the homepage card
   tags: string[]
   cover?: Shot // single screen for the hero preview frames
+  previewVideo?: string // optional muted hover preview for the homepage project card
   previews: Shot[] // three screens for the homepage card
   previewLabel: string // honest label for what the screens are ("Final UI" or "Low-fidelity wireframes")
   caseStudy: CaseStudyData
@@ -54,6 +55,7 @@ const projectRecords: Project[] = [
       'A campus printing solution that lets students upload documents, choose printing preferences, review estimated costs, and track orders using a digital pickup token — cutting queue time at Siddhi Store.',
     tags: ['Mobile App', 'User Research', 'Usability Testing'],
     cover: { src: '/projects/phtopy/cover.jpg', alt: 'Phtopy - Print without the queue Case study' },
+    previewVideo: '/projects/phtopy/phtopy-preview.mp4',
     previews: [shot('phtopy', 'home'), shot('phtopy', 'tracker'), shot('phtopy', 'upi')],
     previewLabel: 'Case Study',
     caseStudy: phtopy,

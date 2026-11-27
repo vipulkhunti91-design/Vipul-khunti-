@@ -427,6 +427,22 @@ function ProjectPanel({
   index: number
   total: number
 }) {
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  const playPreview = () => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    void videoRef.current?.play().catch(() => {
+      // Browsers can reject playback before a user gesture; the cover remains visible.
+    })
+  }
+
+  const resetPreview = () => {
+    const video = videoRef.current
+    if (!video) return
+    video.pause()
+    video.currentTime = 0
+  }
+
   return (
     <article
       aria-label={`${project.name} project showcase`}
@@ -482,7 +498,13 @@ function ProjectPanel({
       </div>
 
       {/* Right Column: Visual Showcase Frame */}
-      <div className="project-panel-visual w-full md:w-[54%] flex items-center justify-center relative overflow-hidden rounded-2xl bg-surface/50 p-4 md:p-6 border border-line/60 group/visual">
+      <div
+        className="project-panel-visual w-full md:w-[54%] flex items-center justify-center relative overflow-hidden rounded-2xl bg-surface/50 p-4 md:p-6 border border-line/60 group/visual"
+        onMouseEnter={playPreview}
+        onMouseLeave={resetPreview}
+        onFocus={playPreview}
+        onBlur={resetPreview}
+      >
         <Link
           to={`/work/${project.slug}`}
           tabIndex={-1}
@@ -492,6 +514,36 @@ function ProjectPanel({
           {/* Main Cover Banner */}
           <div className="relative w-full max-w-[540px] aspect-[16/9] rounded-xl overflow-hidden shadow-2xl transition-transform duration-500 group-hover/visual:scale-[1.02] flex items-center justify-center">
             <Cover cover={project.cover} objectFit="contain" className="w-full h-full border-none shadow-none bg-transparent" />
+            {project.previewVideo && (
+              <>
+                <video
+                  ref={videoRef}
+                  className="absolute inset-0 size-full object-contain bg-surface opacity-0 transition-opacity duration-300 group-hover/visual:opacity-100 group-focus-within/visual:opacity-100"
+                  src={project.previewVideo}
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  aria-label={`${project.name} video preview`}
+                />
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between bg-linear-to-t from-bg/90 via-bg/30 to-transparent p-4 pt-14 transition-opacity duration-300 group-hover/visual:opacity-0 group-focus-within/visual:opacity-0" aria-hidden="true">
+                  <span className="flex items-center gap-3">
+                    <span className="grid size-11 place-items-center rounded-full border border-accent/60 bg-bg/85 text-accent shadow-lg backdrop-blur-sm transition-transform duration-300 group-hover/visual:scale-110">
+                      <svg viewBox="0 0 24 24" className="ml-0.5 size-4 fill-current" aria-hidden="true">
+                        <path d="M8 5.5v13l10-6.5-10-6.5Z" />
+                      </svg>
+                    </span>
+                    <span className="flex flex-col gap-0.5">
+                      <span className="text-xs font-semibold text-fg">Prototype walkthrough</span>
+                      <span className="text-[11px] text-muted">Hover to play preview</span>
+                    </span>
+                  </span>
+                  <span className="rounded-full border border-fg/20 bg-bg/75 px-2.5 py-1 font-mono text-[10px] font-medium tracking-wide text-fg/90 backdrop-blur-sm">
+                    03:20
+                  </span>
+                </div>
+              </>
+            )}
           </div>
 
 

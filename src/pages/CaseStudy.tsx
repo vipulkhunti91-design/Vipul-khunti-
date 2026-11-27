@@ -77,7 +77,8 @@ export function CaseStudy() {
           &larr; Back to Selected Projects
         </ButtonLink>
 
-        <div className="mt-8 max-w-4xl">
+        <div className={`mt-8 ${project.previewVideo ? 'grid max-w-6xl gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(360px,0.8fr)] lg:items-end' : 'max-w-4xl'}`}>
+          <div>
           <div className="flex flex-wrap items-center gap-3">
             <span className="text-xs uppercase font-semibold tracking-wider text-muted">{project.category}</span>
             <span className="text-muted/60">•</span>
@@ -105,6 +106,30 @@ export function CaseStudy() {
                 <Tag key={t}>{t}</Tag>
               ))}
             </ul>
+          )}
+          </div>
+
+          {project.previewVideo && (
+            <aside className="overflow-hidden rounded-2xl border border-line bg-surface/70 p-3 shadow-2xl shadow-black/30 backdrop-blur-sm">
+              <div className="mb-3 flex items-center justify-between px-1">
+                <span className="flex items-center gap-2 text-xs font-semibold text-fg">
+                  <span className="size-2 rounded-full bg-accent" aria-hidden="true" />
+                  Prototype walkthrough
+                </span>
+                <span className="font-mono text-[10px] tracking-wide text-muted">03:20</span>
+              </div>
+              <video
+                className="aspect-video w-full rounded-xl bg-bg object-contain"
+                controls
+                playsInline
+                preload="metadata"
+                poster={project.cover?.src}
+                aria-label={`${project.name} prototype walkthrough video`}
+              >
+                <source src={project.previewVideo} type="video/mp4" />
+                Your browser does not support video playback.
+              </video>
+            </aside>
           )}
         </div>
 
